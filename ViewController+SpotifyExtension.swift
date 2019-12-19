@@ -10,7 +10,7 @@ import Foundation
 
 @objc
 protocol SpotifyRequirements {
-     var playURI : String {get}
+   
     /**
         Set to false
      */
@@ -25,6 +25,7 @@ protocol SpotifyRequirements {
     */
     var playerState: SPTAppRemotePlayerState? {get set}
     var playPauseButton: RoundedButton! {get set}
+
     /**
     The appRemote is the link between the application and the spotify app, acting as a proxy for the actual app
      
@@ -50,8 +51,22 @@ protocol SpotifyRequirements {
      */
     var albumArtImageView: GradientUIImageView! {get set}
     func didPressNextButton(_ sender: AnyObject)
+    /**.
+      first check the appRemote.isConnected state if false, authorize the app and play if the playerState is nil or paused:
+         
+         ```
+         if !(appRemote.isConnected) {
+                 if (!appRemote.authorizeAndPlayURI(playURI)) {
+                 }
+             } else if playerState == nil || playerState!.isPaused {
+                 startPlayback()
+             } else {
+                 pausePlayback()
+             }
+         ```
+     */
+    func didPressPlayButton(_ sender: AnyObject)
 }
-
 
 extension ViewController:  SPTAppRemotePlayerStateDelegate,
    SPTAppRemoteUserAPIDelegate {
