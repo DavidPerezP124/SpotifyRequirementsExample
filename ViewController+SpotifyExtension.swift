@@ -10,11 +10,20 @@ import Foundation
 
 @objc
 protocol SpotifyRequirements {
-    var playURI : String {get}
+     var playURI : String {get}
+    /**
+        Set to false
+     */
+    var subscribedToPlayerState: Bool {get set}
     var trackIdentifier: String {get}
     /**
     add @IBOutlet to this
     */
+    var duration: UILabel! {get set}
+    /**
+    add @IBOutlet to this
+    */
+    var playerState: SPTAppRemotePlayerState? {get set}
     var playPauseButton: RoundedButton! {get set}
     /**
     The appRemote is the link between the application and the spotify app, acting as a proxy for the actual app
